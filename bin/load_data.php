@@ -10,12 +10,20 @@
  */
 
 if (!is_file('composer.json')) {
-    throw new \RuntimeException('Can\'t find a composer.json file. Make sure to start this script from the project root folder');
+//    throw new \RuntimeException('Can\'t find a composer.json file. Make sure to start this script from the project root folder');
 }
 
 $rootDir = __DIR__ . '/..';
 
-require_once __DIR__ . '/../app/bootstrap.php.cache';
+
+$version = getenv('SF_VERSION');
+
+if (strlen($version) == 0) {
+    die("Unable to detect the symfony version");
+}
+
+
+require_once __DIR__ . '/../app/'.$version.'-bootstrap.php.cache';
 
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -103,7 +111,7 @@ if (extension_loaded('xdebug')) {
 }
 
 $success = execute_commands(array(
-    array($bin . ' ./bin/sonata-check.php','Checking Sonata Project\'s requirements', false),
+//    array($bin . ' ./bin/sonata-check.php','Checking Sonata Project\'s requirements', false),
     array(function(OutputInterface $output) use ($fs) {
         $fs->remove("app/cache/prod");
         $fs->remove("app/cache/dev");

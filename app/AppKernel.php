@@ -122,4 +122,44 @@ class AppKernel extends Kernel
     {
         $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
     }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     */
+    public function getCacheDir()
+    {
+        return $this->getProjectDir().'/cache/sf'.self::MAJOR_VERSION.'-'.self::MINOR_VERSION.'_'.$this->environment;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     */
+    public function getLogDir()
+    {
+        return $this->getProjectDir().'/logs/sf'.self::MAJOR_VERSION.'-'.self::MINOR_VERSION;
+    }
+
+    public function getProjectDir()
+    {
+        return realpath(__DIR__.'/..');
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     */
+    protected function getKernelParameters()
+    {
+        return array_merge(
+            parent::getKernelParameters(),
+            array(
+                'kernel.project_dir' => $this->getProjectDir(),
+            )
+        );
+    }
 }

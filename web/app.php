@@ -9,7 +9,10 @@
  * file that was distributed with this source code.
  */
 
-require_once __DIR__ . '/../app/bootstrap.php.cache';
+$version = substr($_SERVER['HTTP_HOST'], 0, 5);
+putenv('SF_VERSION='.$version);
+
+require_once __DIR__ . '/../app/'.$version.'-bootstrap.php.cache';
 require_once __DIR__ . '/../app/AppKernel.php';
 
 $request = Sonata\PageBundle\Request\RequestFactory::createFromGlobals('host_with_path');

@@ -15,3 +15,7 @@
 .vagrant
 .docker/*.tar
 .idea
+
+cache
+logs
+vendor*

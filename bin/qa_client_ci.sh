@@ -8,7 +8,7 @@
 
 if [ ! -f  "composer.json" ]; then
     echo "The script must be started at the root of a project with a composer.json file"
-    exit 1
+#    exit 1
 fi
 
 extended=false
@@ -44,7 +44,7 @@ run_test() {
         echo "Running tests from ./${1}"
         echo "--"
 
-        SYMFONY_DEPRECATIONS_HELPER=weak php -d memory_limit=-1 bin/phpunit -c ${1} ${extra} --log-junit build/junit/`basename ${1}`.xml
+        SYMFONY_DEPRECATIONS_HELPER=weak php -d memory_limit=-1 /usr/local/bin/phpunit -c ${1} ${extra} --log-junit build/junit/`basename ${1}`.xml
 
         status=$?
 
